@@ -27,7 +27,7 @@ public class MedicineDao implements IMedicineDao {
 	@Override
 	public List<Medicine> getAllMedicines() {
 
-		String hql="from Medicine order by expiryDate";
+		String hql="from Medicine";
 		return (List<Medicine>) entityManager.createQuery(hql).getResultList();
 	}
 	@Override

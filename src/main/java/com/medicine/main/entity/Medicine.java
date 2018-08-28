@@ -16,91 +16,95 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
-@Table(name="employee")
+@Table(name="medicinedetails")
 public class Medicine implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="empId")
-	private int empId;  
-	
 	
 
-	@Column(name="empname",nullable=false)
+	public Medicine() {
+		
+	}
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="mId")
+	private int mId;  
+
+
+	@Column(name="medname",nullable=false)
 	@NotNull(message="{Please provide medicine name}")
-	private String empname;
+	private String medname;
 	
 	
 	@NotNull(message="Please provide MRP")
-	@Column(name="extension")
-	private int extension;
+	@Column(name="mrp")
+	private int mrp;
 	
 	@NotNull(message="Please provide Quantity")
-	@Column(name="deptid",nullable=false)	
-	private int deptid;
+	@Column(name="quantity",nullable=false)	
+	private int quantity;
 	
 	@NotNull(message="Please provide ExpiryDate")
-	@Column(name="joiningdate",nullable=false)
+	@Column(name="expirydate",nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Temporal(TemporalType.DATE)
-	private Date joiningdate;
+	private Date expiryDate;
 	
 	@NotNull(message="Please provide ManuFacturer Date")
-	@Column(name="dateofbirth",nullable=false)
+	@Column(name="manudate",nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-MM-yyyy")
 	@Temporal(TemporalType.DATE)
-	private Date dateofbirth;
+	private Date manuDate;
 
-	public int getEmpId() {
-		return empId;
+	public int getmId() {
+		return mId;
 	}
 
-	public void setEmpId(int empId) {
-		this.empId = empId;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public String getEmpname() {
-		return empname;
+	public String getMedname() {
+		return medname;
 	}
 
-	public void setEmpname(String empname) {
-		this.empname = empname;
+	public void setMedname(String medname) {
+		this.medname = medname;
 	}
 
-	public int getExtension() {
-		return extension;
+	public int getMrp() {
+		return mrp;
 	}
 
-	public void setExtension(int extension) {
-		this.extension = extension;
+	public void setMrp(int mrp) {
+		this.mrp = mrp;
 	}
 
-	public int getDeptid() {
-		return deptid;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setDeptid(int deptid) {
-		this.deptid = deptid;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public Date getJoiningdate() {
-		return joiningdate;
+	public Date getExpiryDate() {
+		return expiryDate;
 	}
 
-	public void setJoiningdate(Date joiningdate) {
-		this.joiningdate = joiningdate;
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
-	public Date getDateofbirth() {
-		return dateofbirth;
+	public Date getManuDate() {
+		return manuDate;
 	}
 
-	public void setDateofbirth(Date dateofbirth) {
-		this.dateofbirth = dateofbirth;
+	public void setManuDate(Date manuDate) {
+		this.manuDate = manuDate;
 	}
+
 	
-    
-
 	
 }

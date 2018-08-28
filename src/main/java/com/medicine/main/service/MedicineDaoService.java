@@ -24,8 +24,7 @@ public class MedicineDaoService implements IMedicineService {
 	@Override
 	public String addData(Medicine sb) throws Exception  {
 
-		/*try
-		{*/
+		
 		Date eDate=sb.getExpiryDate();
 		Date mDate=sb.getManuDate();
 		boolean flag=validateDate(mDate);
@@ -33,18 +32,6 @@ public class MedicineDaoService implements IMedicineService {
 
 		System.out.println(flag);
 		System.out.println(flag2);
-		/*if(sb.getMrp()==0)
-			{
-				return "Please provide MRP information correctly";
-			}
-			if(sb.getQuantity()==0)
-			{
-				return "Please provide quantity information correctly";
-			}
-			if(sb.getMedname().equalsIgnoreCase("null")|| sb.getMedname()==null)
-			{
-				return "Please provide name";
-			}*/
 		if(flag && flag2)
 		{
 			if((mDate.compareTo(eDate)<0))
@@ -56,15 +43,6 @@ public class MedicineDaoService implements IMedicineService {
 		}
 		else
 			return"Invalid date format!";
-		/*}
-
-		catch(Exception e)
-		{
-			System.out.println(e);
-
-			return "Values Cannot be null";
-		}
-		 */
 
 
 	}

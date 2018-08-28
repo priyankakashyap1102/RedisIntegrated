@@ -2,6 +2,8 @@ package com.medicine.main.security;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -9,10 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+
+
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,23 +28,37 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class TokenAuthenticationService {
 
 
-	static final long EXPIRATIONTIME = 864_000_000; // 10 days
+	static final long EXPIRATIONTIME = 500000000; 
 	static final String SECRET = "ThisIsASecret";
 	static final String TOKEN_PREFIX = "Bearer";
 	static final String HEADER_STRING = "Authorization";
 	
-	
-	static String addAuthentication(HttpServletResponse res, String username) {
+	/*@Autowired
+	static RedisTemplate<String, Object> redisTemplate;*/
+	public static void addAuthentication(HttpServletResponse res,String username) {
+		try
+		{
 		String JWT = Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET)
 				.compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
-		return JWT;
+		/*RedisUtil.INSTANCE.sadd("Token", JWT);*/
+		
+		
+		
+			/*redisTemplate.opsForValue().set("tokenID", JWT);
+			redisTemplate.expire("tokenID", 5, TimeUnit.MINUTES);*/
+		}
+		catch(Exception e) {
+			System.out.println("Exception raised while setting values into Redis :: "+e.getMessage());
+		}
+
+		
 		
 	}
-	static Authentication getAuthentication(HttpServletRequest request) throws ServletException {
+	public static Authentication getAuthentication(HttpServletRequest request) throws ServletException {
 		String token = request.getHeader(HEADER_STRING);
 		if (token != null) 
 		{
